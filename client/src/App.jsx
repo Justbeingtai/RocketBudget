@@ -1,18 +1,17 @@
 // client/src/App.jsx
 import React from 'react';
+import { useQuery } from '@apollo/client';
 import BudgetChart from './components/BudgetChart';
+import { GET_INCOMES, GET_EXPENSES } from './queries';
 
 function App() {
-  // Sample data to ensure chart renders
-  const incomeData = [
-    { date: '2024-01-01', amount: 500 },
-    { date: '2024-01-15', amount: 700 },
-  ];
+  // Fetch income and expense data from the server
+  const { data: incomeDataResponse } = useQuery(GET_INCOMES);
+  const { data: expenseDataResponse } = useQuery(GET_EXPENSES);
 
-  const expenseData = [
-    { date: '2024-01-05', amount: 200 },
-    { date: '2024-01-20', amount: 300 },
-  ];
+  // Extract the incomes and expenses data or use an empty array if not loaded yet
+  const incomeData = incomeDataResponse?.incomes || [];
+  const expenseData = expenseDataResponse?.expenses || [];
 
   return (
     <div className="app-container">
@@ -22,7 +21,7 @@ function App() {
       </header>
 
       <main>
-        {/* Render the chart with sample data */}
+        {/* Render the chart with real income and expense data */}
         <BudgetChart incomeData={incomeData} expenseData={expenseData} />
       </main>
 
