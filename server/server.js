@@ -17,6 +17,7 @@ app.use(express.json());
 const server = new ApolloServer({
   typeDefs,
   resolvers,
+  persistedQueries: false, // Disable persisted queries for security
 });
 
 // Function to clear income and expense data on server start
