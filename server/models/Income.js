@@ -8,13 +8,13 @@ const incomeSchema = new Schema({
     type: Number,
     required: true,
   },
-  source: {
+  category: {  // Updated field name to 'category'
     type: String,
     required: true,
   },
   date: {
-    type: Date,
-    default: Date.now,
+    type: String,
+    default: () => new Date().toLocaleDateString("en-US"),
   },
 });
 

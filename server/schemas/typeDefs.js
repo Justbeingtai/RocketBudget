@@ -11,15 +11,15 @@ const typeDefs = gql`
   type Income {
     _id: ID
     amount: Float!
-    source: String
-    date: String
+    category: String
+    date: String  
   }
 
   type Expense {
     _id: ID
     amount: Float!
-    category: String
-    date: String
+    category: String!
+    date: String  
   }
 
   type Query {
@@ -29,8 +29,10 @@ const typeDefs = gql`
   }
 
   type Mutation {
-    addIncome(amount: Float!, source: String!, date: String): Income
+    addIncome(amount: Float!, category: String!, date: String): Income
     addExpense(amount: Float!, category: String!, date: String): Expense
+    removeIncome(id: ID!): Income
+    removeExpense(id: ID!): Expense
   }
 `;
 

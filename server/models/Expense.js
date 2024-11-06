@@ -13,8 +13,8 @@ const expenseSchema = new Schema({
     required: true,
   },
   date: {
-    type: Date,
-    default: Date.now,
+    type: String, // Ensure date is stored as a string
+    default: () => new Date().toLocaleDateString("en-US"), // Default to today's date in MM/DD/YYYY format
   },
 });
 

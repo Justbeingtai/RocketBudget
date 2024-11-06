@@ -5,29 +5,34 @@ import Expense from '../models/Expense.js';
 const resolvers = {
   Query: {
     users: async () => [{ _id: "1", username: "sampleUser", email: "sample@example.com" }],
-
-    // Fetch all income entries
-    incomes: async () => {
-      return await Income.find();
-    },
-
-    // Fetch all expense entries
-    expenses: async () => {
-      return await Expense.find();
-    },
+    incomes: async () => await Income.find(),
+    expenses: async () => await Expense.find(),
   },
 
   Mutation: {
-    // Add a new income entry
-    addIncome: async (_, { amount, source, date }) => {
-      const income = new Income({ amount, source, date });
+    addIncome: async (_, { amount, category, date }) => {  // Updated to 'category'
+      const formattedDate = date ? new Date(date).toISOString() : new Date().toISOString();
+      const income = new Income({
+        amount,
+        category,  // Updated to 'category'
+        date: formattedDate,
+      });
       return await income.save();
     },
-
-    // Add a new expense entry
     addExpense: async (_, { amount, category, date }) => {
-      const expense = new Expense({ amount, category, date });
+      const formattedDate = date ? new Date(date).toISOString() : new Date().toISOString();
+      const expense = new Expense({
+        amount,
+        category,
+        date: formattedDate,
+      });
       return await expense.save();
+    },
+    removeIncome: async (_, { id }) => {
+      return await Income.findByIdAndDelete(id);
+    },
+    removeExpense: async (_, { id }) => {
+      return await Expense.findByIdAndDelete(id);
     },
   },
 };
