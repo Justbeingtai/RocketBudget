@@ -7,6 +7,7 @@ import resolvers from './schemas/resolvers.js';
 import dotenv from 'dotenv';
 import Income from './models/Income.js';
 import Expense from './models/Expense.js';
+import path from 'path';
 
 dotenv.config();
 
@@ -20,7 +21,15 @@ const server = new ApolloServer({
   persistedQueries: false, // Option to prevent DoS vulnerability
 });
 
-// Root route
+// Serve static files from the client/build directory in production
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static(path.join(__dirname, '../client/build')));
+  app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, '../client/build', 'index.html'));
+  });
+}
+
+// Root route for API
 app.get('/', (req, res) => {
   res.send('Welcome to RocketBudget API! Go to /graphql to access the GraphQL API.');
 });
