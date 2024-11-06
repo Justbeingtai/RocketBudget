@@ -1,13 +1,18 @@
 // server/server.js
 import express from 'express';
 import { ApolloServer } from 'apollo-server-express';
-import mongooseConnection from './config/connection.js'; // ensure this path matches your actual file structure
+import mongooseConnection from './config/connection.js'; // Ensure this path matches your actual file structure
 import typeDefs from './schemas/typeDefs.js';
 import resolvers from './schemas/resolvers.js';
 import dotenv from 'dotenv';
 import Income from './models/Income.js';
 import Expense from './models/Expense.js';
 import path from 'path';
+import { fileURLToPath } from 'url';
+
+// Simulate __dirname in ES module
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 dotenv.config();
 
@@ -23,9 +28,9 @@ const server = new ApolloServer({
 
 // Serve static files from the client/build directory in production
 if (process.env.NODE_ENV === 'production') {
-  app.use(express.static(path.join(__dirname, '../client/build')));
+  app.use(express.static(path.join(__dirname, '../client/dist')));
   app.get('*', (req, res) => {
-    res.sendFile(path.resolve(__dirname, '../client/build', 'index.html'));
+    res.sendFile(path.resolve(__dirname, '../client/dist', 'index.html'));
   });
 }
 
