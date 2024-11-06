@@ -27,6 +27,11 @@ const typeDefs = gql`
     incomes: [Income]
     expenses: [Expense]
   }
+
+  type Mutation {
+    addIncome(amount: Float!, source: String!, date: String): Income
+    addExpense(amount: Float!, category: String!, date: String): Expense
+  }
 `;
 
 export default typeDefs;
