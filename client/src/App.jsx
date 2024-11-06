@@ -1,34 +1,53 @@
-import React, { useState } from 'react';
+// client/src/App.jsx
+import React, { useState, useEffect } from 'react';
+import { useQuery } from '@apollo/client';
 import BudgetChart from './components/BudgetChart';
-import IncomeList from './components/IncomeList';
-import ExpenseList from './components/ExpenseList';
+import IncomeForm from './components/IncomeForm';
+import ExpenseForm from './components/ExpenseForm';
+import { GET_INCOMES, GET_EXPENSES } from './queries';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
   const [incomeData, setIncomeData] = useState([]);
   const [expenseData, setExpenseData] = useState([]);
 
-  const addIncome = (income) => setIncomeData([...incomeData, income]);
-  const removeIncome = (index) => setIncomeData(incomeData.filter((_, i) => i !== index));
-  
-  const addExpense = (expense) => setExpenseData([...expenseData, expense]);
-  const removeExpense = (index) => setExpenseData(expenseData.filter((_, i) => i !== index));
+  const { data: incomeDataResponse, error: incomeError } = useQuery(GET_INCOMES);
+  const { data: expenseDataResponse, error: expenseError } = useQuery(GET_EXPENSES);
 
-  const totalIncome = incomeData.reduce((sum, inc) => sum + Number(inc.amount), 0);
-  const totalExpense = expenseData.reduce((sum, exp) => sum + Number(exp.amount), 0);
+  useEffect(() => {
+    if (incomeDataResponse) setIncomeData(incomeDataResponse.incomes);
+    if (incomeError) console.error("Income Query Error:", incomeError);
+  }, [incomeDataResponse, incomeError]);
+
+  useEffect(() => {
+    if (expenseDataResponse) setExpenseData(expenseDataResponse.expenses);
+    if (expenseError) console.error("Expense Query Error:", expenseError);
+  }, [expenseDataResponse, expenseError]);
 
   return (
-    <div className="app-container">
-      <header>
-        <h1>RocketBudget</h1>
+    <div className="container mt-4">
+      <header className="text-center mb-4">
+        <h1 className="display-4">RocketBudget</h1>
       </header>
 
       <main>
-        <IncomeList incomeData={incomeData} addIncome={addIncome} removeIncome={removeIncome} />
-        <ExpenseList expenseData={expenseData} addExpense={addExpense} removeExpense={removeExpense} />
-        <BudgetChart totalIncome={totalIncome} totalExpense={totalExpense} />
+        <div className="row">
+          <div className="col-md-6">
+            <IncomeForm setIncomeData={setIncomeData} />
+          </div>
+          <div className="col-md-6">
+            <ExpenseForm setExpenseData={setExpenseData} />
+          </div>
+        </div>
+
+        <div className="row mt-4">
+          <div className="col">
+            <BudgetChart incomeData={incomeData} expenseData={expenseData} />
+          </div>
+        </div>
       </main>
 
-      <footer>
+      <footer className="text-center mt-4">
         <p>RocketBudget &copy; 2024</p>
       </footer>
     </div>

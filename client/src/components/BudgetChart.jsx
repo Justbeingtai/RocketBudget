@@ -1,36 +1,39 @@
 // client/src/components/BudgetChart.jsx
 import React from 'react';
 import { Pie } from 'react-chartjs-2';
-import { Chart as ChartJS, CategoryScale, LinearScale, PieElement, Title, Tooltip, Legend } from 'chart.js';
+import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
+ChartJS.register(ArcElement, Tooltip, Legend);
 
-ChartJS.register(CategoryScale, LinearScale, PieElement, Title, Tooltip, Legend);
+const BudgetChart = ({ incomeData, expenseData }) => {
+  const totalIncome = incomeData.reduce((acc, item) => acc + item.amount, 0);
+  const totalExpense = expenseData.reduce((acc, item) => acc + item.amount, 0);
 
-const BudgetChart = ({ totalIncome, totalExpense }) => {
   const data = {
-    labels: ['Income', 'Expenses'],
+    labels: ['Total Income', 'Total Expense'],
     datasets: [
       {
-        label: 'Income vs Expenses',
         data: [totalIncome, totalExpense],
-        backgroundColor: ['rgba(75, 192, 192, 0.5)', 'rgba(255, 99, 132, 0.5)'],
+        backgroundColor: ['rgba(75, 192, 192, 0.6)', 'rgba(255, 99, 132, 0.6)'],
+        hoverBackgroundColor: ['rgba(75, 192, 192, 0.8)', 'rgba(255, 99, 132, 0.8)'],
       },
     ],
   };
 
   const options = {
     responsive: true,
+    maintainAspectRatio: false,
     plugins: {
       legend: {
-        position: 'top',
-      },
-      title: {
-        display: true,
-        text: 'Income vs Expenses',
+        position: 'bottom',
       },
     },
   };
 
-  return <Pie data={data} options={options} />;
+  return (
+    <div style={{ height: '400px' }}>
+      <Pie data={data} options={options} />
+    </div>
+  );
 };
 
 export default BudgetChart;

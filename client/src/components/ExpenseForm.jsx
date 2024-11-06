@@ -3,40 +3,50 @@ import React, { useState } from 'react';
 import { useMutation } from '@apollo/client';
 import { ADD_EXPENSE, GET_EXPENSES } from '../queries';
 
-const ExpenseForm = () => {
-  const [amount, setAmount] = useState('');
+const ExpenseForm = ({ setExpenseData }) => {
   const [category, setCategory] = useState('');
-  const [date, setDate] = useState('');
-  const [addExpense] = useMutation(ADD_EXPENSE, {
+  const [amount, setAmount] = useState('');
+  
+  const [addExpense, { error }] = useMutation(ADD_EXPENSE, {
     refetchQueries: [{ query: GET_EXPENSES }],
+    onCompleted: (data) => {
+      setExpenseData((prevData) => [...prevData, data.addExpense]);
+      setCategory('');
+      setAmount('');
+    },
   });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await addExpense({ variables: { amount: parseFloat(amount), category, date } });
-    setAmount('');
-    setCategory('');
-    setDate('');
+
+    try {
+      await addExpense({
+        variables: {
+          category,
+          amount: parseFloat(amount),
+          date: new Date().toISOString(),
+        },
+      });
+    } catch (err) {
+      console.error("Expense mutation error:", err);
+    }
   };
 
   return (
     <form onSubmit={handleSubmit}>
       <input
         type="text"
-        placeholder="Category"
+        placeholder="Expense Category"
         value={category}
         onChange={(e) => setCategory(e.target.value)}
+        required
       />
       <input
         type="number"
         placeholder="Amount"
         value={amount}
         onChange={(e) => setAmount(e.target.value)}
-      />
-      <input
-        type="date"
-        value={date}
-        onChange={(e) => setDate(e.target.value)}
+        required
       />
       <button type="submit">Add Expense</button>
     </form>
