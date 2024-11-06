@@ -1,23 +1,197 @@
-/* client/src/App.css */
+/* Reset and universal styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  font-family: Arial, sans-serif;
+  height: 100%;
+  background-color: #f9fafb;
+  color: #333;
+}
+
 body {
-  font-family: 'Roboto', sans-serif;
-  background-color: #f8f9fa;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
 }
 
-.app-container header {
-  padding: 20px 0;
-}
-
-.app-container main {
+/* Main app container styling */
+.app-container {
+  width: 100%;
+  max-width: 1200px;
+  min-height: 90vh;
+  margin: 20px;
   padding: 20px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-.app-container footer {
-  padding: 10px 0;
-  font-size: 0.9rem;
-  color: #666;
+/* Header styles */
+header h1 {
+  margin-bottom: 20px;
+  font-size: 2.5em;
+  color: #4A90E2;
 }
 
-form input {
+/* Main content layout */
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+  width: 100%;
+}
+
+/* Form section styling */
+.form-section {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 800px;
+  gap: 20px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  width: 100%;
+}
+
+.input-group {
   margin-bottom: 10px;
+}
+
+.input-group input {
+  padding: 10px;
+  font-size: 1em;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  width: 100%;
+}
+
+form button {
+  padding: 10px;
+  font-size: 1em;
+  font-weight: bold;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  width: 100%;
+}
+
+.btn-primary {
+  background-color: #4A90E2;
+}
+
+.btn-warning {
+  background-color: #F5A623;
+}
+
+.btn-primary:hover {
+  background-color: #357ABD;
+}
+
+.btn-warning:hover {
+  background-color: #e08d13;
+}
+
+/* List section styling */
+.list-section {
+  display: flex;
+  gap: 20px;
+  width: 100%;
+  max-width: 800px;
+  margin-top: 20px;
+}
+
+.income-list, .expense-list {
+  width: 100%;
+}
+
+h2 {
+  font-size: 1.5em;
+  color: #5d5c61;
+  margin-bottom: 10px;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  max-height: 250px;
+  overflow-y: auto;
+  background-color: #f9f9f9;
+  padding: 10px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.list-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px;
+  border-bottom: 1px solid #ddd;
+}
+
+.date {
+  color: #888;
+  font-size: 0.9em;
+}
+
+.remove-btn {
+  background: none;
+  border: none;
+  color: #e63946;
+  font-size: 1.2em;
+  cursor: pointer;
+  padding: 0;
+}
+
+/* Chart container styling */
+.chart-container {
+  width: 100%;
+  max-width: 600px;
+  margin-top: 20px;
+}
+
+/* Net Balance styling */
+.net-balance {
+  margin-top: 20px;
+  padding: 15px;
+  background-color: #f3f4f6;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  width: 100%;
+  max-width: 400px;
+}
+
+.net-balance h3 {
+  margin-bottom: 10px;
+  font-size: 1.3em;
+  color: #4A90E2;
+}
+
+.net-balance p {
+  font-size: 1.5em;
+  color: #2D8A34; /* Set to green by default */
+  font-weight: bold;
+}
+
+footer {
+  margin-top: 30px;
+  font-size: 0.9em;
+  color: #777;
 }

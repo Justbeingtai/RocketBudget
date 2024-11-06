@@ -6,8 +6,8 @@ import { ADD_EXPENSE, GET_EXPENSES } from '../queries';
 const ExpenseForm = ({ setExpenseData }) => {
   const [category, setCategory] = useState('');
   const [amount, setAmount] = useState('');
-  
-  const [addExpense, { error }] = useMutation(ADD_EXPENSE, {
+
+  const [addExpense] = useMutation(ADD_EXPENSE, {
     refetchQueries: [{ query: GET_EXPENSES }],
     onCompleted: (data) => {
       setExpenseData((prevData) => [...prevData, data.addExpense]);
@@ -18,37 +18,38 @@ const ExpenseForm = ({ setExpenseData }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    try {
-      await addExpense({
-        variables: {
-          category,
-          amount: parseFloat(amount),
-          date: new Date().toISOString(),
-        },
-      });
-    } catch (err) {
-      console.error("Expense mutation error:", err);
-    }
+    await addExpense({
+      variables: {
+        category,
+        amount: parseFloat(amount),
+        date: new Date().toISOString(),
+      },
+    });
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <input
-        type="text"
-        placeholder="Expense Category"
-        value={category}
-        onChange={(e) => setCategory(e.target.value)}
-        required
-      />
-      <input
-        type="number"
-        placeholder="Amount"
-        value={amount}
-        onChange={(e) => setAmount(e.target.value)}
-        required
-      />
-      <button type="submit">Add Expense</button>
+    <form onSubmit={handleSubmit} className="form-container">
+      <div className="form-group">
+        <input
+          type="text"
+          className="form-control"
+          placeholder="Expense Category"
+          value={category}
+          onChange={(e) => setCategory(e.target.value)}
+          required
+        />
+        <input
+          type="number"
+          className="form-control"
+          placeholder="Amount"
+          value={amount}
+          onChange={(e) => setAmount(e.target.value)}
+          required
+        />
+        <button type="submit" className="btn btn-warning">
+          Add Expense
+        </button>
+      </div>
     </form>
   );
 };

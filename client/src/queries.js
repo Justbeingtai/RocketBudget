@@ -2,10 +2,10 @@
 import { gql } from '@apollo/client';
 
 export const ADD_INCOME = gql`
-  mutation AddIncome($source: String!, $amount: Float!, $date: String!) {
-    addIncome(source: $source, amount: $amount, date: $date) {
+  mutation AddIncome($category: String!, $amount: Float!, $date: String!) {
+    addIncome(category: $category, amount: $amount, date: $date) {
       _id
-      source
+      category
       amount
       date
     }
@@ -23,11 +23,27 @@ export const ADD_EXPENSE = gql`
   }
 `;
 
+export const REMOVE_INCOME = gql`
+  mutation RemoveIncome($id: ID!) {
+    removeIncome(id: $id) {
+      _id
+    }
+  }
+`;
+
+export const REMOVE_EXPENSE = gql`
+  mutation RemoveExpense($id: ID!) {
+    removeExpense(id: $id) {
+      _id
+    }
+  }
+`;
+
 export const GET_INCOMES = gql`
   query GetIncomes {
     incomes {
       _id
-      source
+      category
       amount
       date
     }
