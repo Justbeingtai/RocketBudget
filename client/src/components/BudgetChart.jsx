@@ -6,6 +6,9 @@ import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Toolti
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
 const BudgetChart = ({ incomeData, expenseData }) => {
+  console.log("Income Data in Chart:", incomeData); // Log income data received in the chart
+  console.log("Expense Data in Chart:", expenseData); // Log expense data received in the chart
+
   const data = {
     labels: incomeData.map((item) => item.date),
     datasets: [
