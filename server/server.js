@@ -1,7 +1,7 @@
 // server/server.js
 import express from 'express';
 import { ApolloServer } from 'apollo-server-express';
-import mongooseConnection from './config/connection.js';
+import mongooseConnection from './config/connection.js'; // ensure this path matches your actual file structure
 import typeDefs from './schemas/typeDefs.js';
 import resolvers from './schemas/resolvers.js';
 import dotenv from 'dotenv';
@@ -17,7 +17,12 @@ app.use(express.json());
 const server = new ApolloServer({
   typeDefs,
   resolvers,
-  persistedQueries: false, // Disable persisted queries for security
+  persistedQueries: false, // Option to prevent DoS vulnerability
+});
+
+// Root route
+app.get('/', (req, res) => {
+  res.send('Welcome to RocketBudget API! Go to /graphql to access the GraphQL API.');
 });
 
 // Function to clear income and expense data on server start
@@ -32,12 +37,16 @@ async function clearData() {
 }
 
 // Start Apollo server and clear data
-await server.start();
-server.applyMiddleware({ app });
+async function startServer() {
+  await server.start();
+  server.applyMiddleware({ app });
 
-mongooseConnection.once('open', async () => {
-  await clearData(); // Clear data on server start
-  app.listen(PORT, () => {
-    console.log(`Server running on http://localhost:${PORT}${server.graphqlPath}`);
+  mongooseConnection.once('open', async () => {
+    await clearData();
+    app.listen(PORT, () => {
+      console.log(`Server running on http://localhost:${PORT}${server.graphqlPath}`);
+    });
   });
-});
+}
+
+startServer();
