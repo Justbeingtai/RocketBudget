@@ -1,31 +1,20 @@
-// client/src/App.jsx
-import React, { useState, useEffect } from 'react';
-import { useQuery } from '@apollo/client';
+import React, { useState } from 'react';
 import BudgetChart from './components/BudgetChart';
-import IncomeForm from './components/IncomeForm';
-import ExpenseForm from './components/ExpenseForm';
-import { GET_INCOMES, GET_EXPENSES } from './queries';
+import IncomeList from './components/IncomeList';
+import ExpenseList from './components/ExpenseList';
 
 function App() {
   const [incomeData, setIncomeData] = useState([]);
   const [expenseData, setExpenseData] = useState([]);
 
-  const { data: incomeDataResponse, error: incomeError } = useQuery(GET_INCOMES);
-  const { data: expenseDataResponse, error: expenseError } = useQuery(GET_EXPENSES);
+  const addIncome = (income) => setIncomeData([...incomeData, income]);
+  const removeIncome = (index) => setIncomeData(incomeData.filter((_, i) => i !== index));
+  
+  const addExpense = (expense) => setExpenseData([...expenseData, expense]);
+  const removeExpense = (index) => setExpenseData(expenseData.filter((_, i) => i !== index));
 
-  useEffect(() => {
-    if (incomeDataResponse) {
-      setIncomeData(incomeDataResponse.incomes);
-    }
-    if (incomeError) console.error("Income Query Error:", incomeError);
-  }, [incomeDataResponse, incomeError]);
-
-  useEffect(() => {
-    if (expenseDataResponse) {
-      setExpenseData(expenseDataResponse.expenses);
-    }
-    if (expenseError) console.error("Expense Query Error:", expenseError);
-  }, [expenseDataResponse, expenseError]);
+  const totalIncome = incomeData.reduce((sum, inc) => sum + Number(inc.amount), 0);
+  const totalExpense = expenseData.reduce((sum, exp) => sum + Number(exp.amount), 0);
 
   return (
     <div className="app-container">
@@ -34,9 +23,9 @@ function App() {
       </header>
 
       <main>
-        <IncomeForm />
-        <ExpenseForm />
-        <BudgetChart incomeData={incomeData} expenseData={expenseData} />
+        <IncomeList incomeData={incomeData} addIncome={addIncome} removeIncome={removeIncome} />
+        <ExpenseList expenseData={expenseData} addExpense={addExpense} removeExpense={removeExpense} />
+        <BudgetChart totalIncome={totalIncome} totalExpense={totalExpense} />
       </main>
 
       <footer>
