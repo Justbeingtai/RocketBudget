@@ -1,7 +1,7 @@
 // server/server.js
 import express from 'express';
 import { ApolloServer } from 'apollo-server-express';
-import mongooseConnection from './config/connection.js'; // Ensure this path matches your actual file structure
+import mongooseConnection from './config/connection.js';
 import typeDefs from './schemas/typeDefs.js';
 import resolvers from './schemas/resolvers.js';
 import dotenv from 'dotenv';
@@ -9,6 +9,7 @@ import Income from './models/Income.js';
 import Expense from './models/Expense.js';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import authRoutes from './routes/authRoutes.js'; // Import auth routes
 
 // Simulate __dirname in ES module
 const __filename = fileURLToPath(import.meta.url);
@@ -20,13 +21,15 @@ const PORT = process.env.PORT || 4000;
 const app = express();
 app.use(express.json());
 
+// Use auth routes at /api/auth
+app.use('/api/auth', authRoutes);
+
 const server = new ApolloServer({
   typeDefs,
   resolvers,
-  persistedQueries: false, // Option to prevent DoS vulnerability
+  persistedQueries: false,
 });
 
-// Serve static files from the client/build directory in production
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static(path.join(__dirname, '../client/dist')));
   app.get('*', (req, res) => {
@@ -34,12 +37,10 @@ if (process.env.NODE_ENV === 'production') {
   });
 }
 
-// Root route for API
 app.get('/', (req, res) => {
   res.send('Welcome to RocketBudget API! Go to /graphql to access the GraphQL API.');
 });
 
-// Function to clear income and expense data on server start
 async function clearData() {
   try {
     await Income.deleteMany({});
@@ -50,7 +51,6 @@ async function clearData() {
   }
 }
 
-// Start Apollo server and clear data
 async function startServer() {
   await server.start();
   server.applyMiddleware({ app });

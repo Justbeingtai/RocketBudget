@@ -7,6 +7,7 @@ import ExpenseForm from './components/ExpenseForm';
 import { GET_INCOMES, GET_EXPENSES, REMOVE_INCOME, REMOVE_EXPENSE } from './queries';
 import './App.css';
 
+
 function App() {
   const [incomeData, setIncomeData] = useState([]);
   const [expenseData, setExpenseData] = useState([]);
