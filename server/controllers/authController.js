@@ -1,5 +1,5 @@
 // server/controllers/authController.js
-import bcrypt from 'bcrypt';
+import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import User from '../models/User.js';
 
@@ -43,25 +43,19 @@ export const loginUser = async (req, res) => {
     console.log('Stored hashed password:', user.password);
 
     // Compare the entered password with the stored hashed password
-    bcrypt.compare(password, user.password, (err, isMatch) => {
-      if (err) {
-        console.error('Error comparing passwords:', err);
-        return res.status(500).json({ message: 'Error during password comparison', error: err });
-      }
+    const isPasswordValid = await bcrypt.compare(password, user.password);
+    console.log('Password comparison result:', isPasswordValid);
 
-      console.log('Password comparison result:', isMatch);
+    if (!isPasswordValid) {
+      return res.status(400).json({ message: 'Invalid password' });
+    }
 
-      if (!isMatch) {
-        return res.status(400).json({ message: 'Invalid password' });
-      }
-
-      // Generate a JWT token if password matches
-      const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
-        expiresIn: '1h',
-      });
-
-      res.json({ message: 'Login successful', token });
+    // Generate a JWT token if password matches
+    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
+      expiresIn: '1h',
     });
+
+    res.json({ message: 'Login successful', token });
   } catch (error) {
     res.status(500).json({ message: 'Error logging in', error });
   }
