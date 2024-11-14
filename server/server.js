@@ -1,17 +1,17 @@
 // server/server.js
 import express from 'express';
+import cors from 'cors';
 import { ApolloServer } from 'apollo-server-express';
 import mongooseConnection from './config/connection.js';
 import typeDefs from './schemas/typeDefs.js';
 import resolvers from './schemas/resolvers.js';
 import dotenv from 'dotenv';
-import Income from './models/Income.js';
-import Expense from './models/Expense.js';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import authRoutes from './routes/authRoutes.js'; // Import auth routes
+import authRoutes from './routes/authRoutes.js';
+import Income from './models/Income.js';
+import Expense from './models/Expense.js';
 
-// Simulate __dirname in ES module
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
@@ -19,27 +19,21 @@ dotenv.config();
 
 const PORT = process.env.PORT || 4000;
 const app = express();
+
+app.use(cors({ origin: '*' }));
 app.use(express.json());
 
-// Use auth routes at /api/auth
+// Use auth routes
 app.use('/api/auth', authRoutes);
 
 const server = new ApolloServer({
   typeDefs,
   resolvers,
   persistedQueries: false,
+  introspection: true,
+  playground: process.env.NODE_ENV !== 'production', // Ensure playground is enabled in development
 });
 
-if (process.env.NODE_ENV === 'production') {
-  app.use(express.static(path.join(__dirname, '../client/dist')));
-  app.get('*', (req, res) => {
-    res.sendFile(path.resolve(__dirname, '../client/dist', 'index.html'));
-  });
-}
-
-app.get('/', (req, res) => {
-  res.send('Welcome to RocketBudget API! Go to /graphql to access the GraphQL API.');
-});
 
 async function clearData() {
   try {
@@ -54,6 +48,17 @@ async function clearData() {
 async function startServer() {
   await server.start();
   server.applyMiddleware({ app });
+
+  if (process.env.NODE_ENV === 'production') {
+    app.use(express.static(path.join(__dirname, '../client/dist')));
+    app.get('*', (req, res) => {
+      res.sendFile(path.resolve(__dirname, '../client/dist', 'index.html'));
+    });
+  }
+
+  app.get('/', (req, res) => {
+    res.send('Welcome to RocketBudget API! Go to /graphql to access the GraphQL API.');
+  });
 
   mongooseConnection.once('open', async () => {
     await clearData();

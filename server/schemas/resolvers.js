@@ -10,29 +10,25 @@ const resolvers = {
   },
 
   Mutation: {
-    addIncome: async (_, { amount, category, date }) => {  // Updated to 'category'
+    addIncome: async (_, { amount, category, date }) => {
       const formattedDate = date ? new Date(date).toISOString() : new Date().toISOString();
-      const income = new Income({
-        amount,
-        category,  // Updated to 'category'
-        date: formattedDate,
-      });
-      return await income.save();
+      const income = new Income({ amount, category, date: formattedDate });
+      await income.save();
+      return income;
     },
     addExpense: async (_, { amount, category, date }) => {
       const formattedDate = date ? new Date(date).toISOString() : new Date().toISOString();
-      const expense = new Expense({
-        amount,
-        category,
-        date: formattedDate,
-      });
-      return await expense.save();
+      const expense = new Expense({ amount, category, date: formattedDate });
+      await expense.save();
+      return expense;
     },
     removeIncome: async (_, { id }) => {
-      return await Income.findByIdAndDelete(id);
+      const income = await Income.findByIdAndDelete(id);
+      return income;
     },
     removeExpense: async (_, { id }) => {
-      return await Expense.findByIdAndDelete(id);
+      const expense = await Expense.findByIdAndDelete(id);
+      return expense;
     },
   },
 };

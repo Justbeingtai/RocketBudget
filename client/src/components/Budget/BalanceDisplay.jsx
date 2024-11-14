@@ -1,4 +1,4 @@
-// client/src/components/BalanceDisplay.jsx
+// client/src/components/Budget/BalanceDisplay.jsx
 import React from 'react';
 
 const BalanceDisplay = ({ totalIncome, totalExpense }) => {

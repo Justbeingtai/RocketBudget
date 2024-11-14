@@ -11,7 +11,7 @@ const typeDefs = gql`
   type Income {
     _id: ID
     amount: Float!
-    category: String
+    category: String!
     date: String  
   }
 
