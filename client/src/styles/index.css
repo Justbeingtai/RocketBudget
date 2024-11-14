@@ -1,0 +1,203 @@
+/* src/styles/index.css */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --primary-color: #4A90E2;
+  --text-color: #333333;
+  --background-color: #ffffff; /* Light background for container */
+  --margin-color: #f2f2f2; /* Light background for the outer margin */
+  --income-bg: #e0f7e8;
+  --expense-bg: #fde2e2;
+  --button-primary: #4caf50;
+  --button-warning: #ff5252;
+  --header-color: #333;
+  --subtext-color: #666;
+}
+
+/* Main background styling */
+.app-background {
+  background-color: var(--margin-color);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+/* Main container styling */
+.content-container {
+  background-color: var(--background-color);
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  max-width: 1200px;
+  width: 100%;
+  color: var(--text-color);
+}
+
+/* Header styling */
+.app-header {
+  text-align: center;
+  padding: 20px;
+  background-color: var(--background-color);
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 30px;
+}
+
+.app-header h1 {
+  font-size: 2.5rem;
+  color: var(--header-color);
+  font-weight: 800;
+  margin-bottom: 10px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+.app-header p {
+  font-size: 1.1rem;
+  color: var(--subtext-color);
+  font-weight: 400;
+  margin-top: 0;
+}
+
+/* Form section styling */
+.form-section {
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+
+.income-form, .expense-form {
+  flex: 1;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.income-form {
+  background-color: var(--income-bg);
+}
+
+.expense-form {
+  background-color: var(--expense-bg);
+}
+
+/* Form input styling */
+input[type="text"], input[type="number"], input[type="date"], select {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  font-size: 1em;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+input[type="text"]:focus, input[type="number"]:focus, input[type="date"]:focus, select:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  outline: none;
+}
+
+/* Button styling */
+button {
+  padding: 10px;
+  font-size: 1em;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn-primary {
+  background-color: var(--button-primary);
+  color: white;
+}
+
+.btn-primary:hover {
+  background-color: darken(var(--button-primary), 10%);
+}
+
+.btn-warning {
+  background-color: var(--button-warning);
+  color: white;
+}
+
+.btn-warning:hover {
+  background-color: darken(var(--button-warning), 10%);
+}
+
+/* List section styling */
+.list-section {
+  display: flex;
+}
+
+.income-list, .expense-list {
+  flex: 1;
+  background-color: var(--background-color);
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  width: 100%;
+}
+
+.income-list h2, .expense-list h2 {
+  margin-bottom: 15px;
+  color: var(--header-color);
+}
+
+.item-date {
+  font-size: 0.9rem;
+  color: #666;
+  margin-left: 10px;
+}
+
+
+ul {
+  list-style: none;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.list-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px;
+  background-color: #f9f9f9;
+  border-radius: 4px;
+  margin-bottom: 8px;
+  color: var(--text-color);
+}
+
+/* Chart container styling */
+.chart-container {
+  background-color: var(--background-color);
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Net balance section styling */
+.net-balance-section {
+  background-color: #f0f4c3;
+  padding: 20px;
+  border-radius: 8px;
+  text-align: center;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Footer styling */
+footer {
+  text-align: center;
+  padding: 20px;
+  font-size: 0.9em;
+  color: var(--subtext-color);
+}
+
