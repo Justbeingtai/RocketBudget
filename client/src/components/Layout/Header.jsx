@@ -1,5 +1,6 @@
 // client/src/components/Layout/Header.jsx
-import React from 'react';
+import React from "react";
+import "../../styles/Header.css";
 
 const Header = ({ isAuthenticated, setIsAuthenticated }) => {
   const handleLogout = () => {
@@ -8,12 +9,16 @@ const Header = ({ isAuthenticated, setIsAuthenticated }) => {
   };
 
   return (
-    <header className="header">
-      <h1>RocketBudget</h1>
+    <header className="header-container">
+      <div className="header-logo">
+        <h1>RocketBudget</h1>
+      </div>
       {isAuthenticated && (
-        <button className="logout-button" onClick={handleLogout}>
-          Logout
-        </button>
+        <div className="header-actions">
+          <button onClick={handleLogout} className="logout-button">
+            Logout
+          </button>
+        </div>
       )}
     </header>
   );

@@ -1,0 +1,43 @@
+/* client/src/styles/Header.css */
+
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  background-color: #ffffff;
+  border-bottom: 2px solid #e0e0e0;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.header-logo h1 {
+  font-size: 2rem;
+  color: #4a90e2;
+  margin: 0;
+  background: linear-gradient(45deg, #4a90e2, #34d3a0);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logout-button {
+  padding: 8px 16px;
+  font-size: 1rem;
+  color: #ffffff;
+  background-color: #ff5252;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.logout-button:hover {
+  background-color: #e63946;
+}
