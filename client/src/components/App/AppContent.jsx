@@ -11,7 +11,7 @@ import IncomeForm from "../Forms/IncomeForm";
 import ExpenseForm from "../Forms/ExpenseForm";
 import IncomeList from "../Budget/IncomeList";
 import ExpenseList from "../Budget/ExpenseList";
-import NetBalance from "../Budget/git123";
+import NetBalance from "../Budget/NetBalance";
 import { Container, Row, Col } from "react-bootstrap";
 import "../../styles/AppContent.css";
 
