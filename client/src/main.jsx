@@ -18,9 +18,6 @@ function MainApp() {
   const [addIncome] = useMutation(ADD_INCOME);
   const [addExpense] = useMutation(ADD_EXPENSE);
 
-  // Calculate net balance
-  const netBalance = incomeData.reduce((acc, income) => acc + income.amount, 0) - expenseData.reduce((acc, expense) => acc + expense.amount, 0);
-
   useEffect(() => {
     setIsAuthenticated(!!localStorage.getItem('token'));
   }, []);
@@ -75,13 +72,6 @@ function MainApp() {
         <AppContent
           isAuthenticated={isAuthenticated}
           setIsAuthenticated={setIsAuthenticated}
-          incomeData={incomeData}
-          setIncomeData={handleAddIncome}
-          expenseData={expenseData}
-          setExpenseData={handleAddExpense}
-          netBalance={netBalance}
-          handleRemoveIncome={(id) => setIncomeData(incomeData.filter((income) => income._id !== id))}
-          handleRemoveExpense={(id) => setExpenseData(expenseData.filter((expense) => expense._id !== id))}
         />
       ) : (
         <AuthTabs setIsAuthenticated={setIsAuthenticated} />
