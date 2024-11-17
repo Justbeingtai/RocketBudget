@@ -8,36 +8,79 @@
   background-color: #ffffff;
   border-bottom: 2px solid #e0e0e0;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  position: relative;
+  overflow: hidden;
 }
 
 .header-logo h1 {
-  font-size: 2rem;
+  font-size: 2.5rem;
   color: #4a90e2;
   margin: 0;
-  background: linear-gradient(45deg, #4a90e2, #34d3a0);
+  background: linear-gradient(90deg, #34d3a0, #4a90e2, #ff5252);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   text-transform: uppercase;
-  letter-spacing: 1px;
+  letter-spacing: 2px;
+  font-weight: bold;
+  animation: glowing-text 3s ease-in-out infinite;
+}
+
+@keyframes glowing-text {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }
 
 .header-actions {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 15px;
+}
+
+.about-button {
+  padding: 10px 20px;
+  font-size: 1rem;
+  color: #ffffff;
+  background: linear-gradient(90deg, #34d3a0, #4a90e2);
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: transform 0.3s ease, background 0.3s ease;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.about-button:hover {
+  background: linear-gradient(90deg, #4a90e2, #34d3a0);
+  transform: scale(1.05);
+}
+
+.about-button:active {
+  transform: scale(0.95);
 }
 
 .logout-button {
-  padding: 8px 16px;
+  padding: 10px 20px;
   font-size: 1rem;
   color: #ffffff;
-  background-color: #ff5252;
+  background: linear-gradient(90deg, #ff5252, #e63946);
   border: none;
-  border-radius: 6px;
+  border-radius: 10px;
   cursor: pointer;
-  transition: background-color 0.3s;
+  transition: transform 0.3s ease, background 0.3s ease;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .logout-button:hover {
-  background-color: #e63946;
+  background: linear-gradient(90deg, #e63946, #ff5252);
+  transform: scale(1.05);
+}
+
+.logout-button:active {
+  transform: scale(0.95);
 }

@@ -1,17 +1,19 @@
 // client/src/main.jsx
-import React, { useState, useEffect } from 'react';
-import ReactDOM from 'react-dom/client';
-import { ApolloProvider, useMutation } from '@apollo/client';
-import client from './apolloClient';
-import { ADD_INCOME, ADD_EXPENSE } from './queries';
-import AppContent from './components/App/AppContent';
-import AuthTabs from './components/Layout/AuthTabs'; // Import AuthTabs component
-import './styles/App.css';
-import './styles/index.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import React, { useState, useEffect } from "react";
+import ReactDOM from "react-dom/client";
+import { BrowserRouter as Router, Routes, Route, createBrowserRouter } from "react-router-dom";
+import { ApolloProvider, useMutation } from "@apollo/client";
+import client from "./apolloClient";
+import { ADD_INCOME, ADD_EXPENSE } from "./queries";
+import AppContent from "./components/App/AppContent";
+import AuthTabs from "./components/Layout/AuthTabs";
+import AboutUs from "./components/About/AboutUs"; // Import About Us page
+import "./styles/App.css";
+import "./styles/index.css";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 function MainApp() {
-  const [isAuthenticated, setIsAuthenticated] = useState(!!localStorage.getItem('token'));
+  const [isAuthenticated, setIsAuthenticated] = useState(!!localStorage.getItem("token"));
   const [incomeData, setIncomeData] = useState([]);
   const [expenseData, setExpenseData] = useState([]);
 
@@ -19,7 +21,7 @@ function MainApp() {
   const [addExpense] = useMutation(ADD_EXPENSE);
 
   useEffect(() => {
-    setIsAuthenticated(!!localStorage.getItem('token'));
+    setIsAuthenticated(!!localStorage.getItem("token"));
   }, []);
 
   const handleAddIncome = async (newIncome) => {
@@ -38,9 +40,9 @@ function MainApp() {
       });
 
       setIncomeData((prevData) => [...prevData, data.addIncome]);
-      console.log('Income added successfully:', data.addIncome);
+      console.log("Income added successfully:", data.addIncome);
     } catch (error) {
-      console.error('Error adding income:', error);
+      console.error("Error adding income:", error);
     }
   };
 
@@ -60,27 +62,40 @@ function MainApp() {
       });
 
       setExpenseData((prevData) => [...prevData, data.addExpense]);
-      console.log('Expense added successfully:', data.addExpense);
+      console.log("Expense added successfully:", data.addExpense);
     } catch (error) {
-      console.error('Error adding expense:', error);
+      console.error("Error adding expense:", error);
     }
   };
 
   return (
-    <div>
-      {isAuthenticated ? (
-        <AppContent
-          isAuthenticated={isAuthenticated}
-          setIsAuthenticated={setIsAuthenticated}
+    <Router
+      future={{
+        v7_startTransition: true,
+        v7_relativeSplatPath: true,
+      }}
+    >
+      <Routes>
+        <Route
+          path="/"
+          element={
+            isAuthenticated ? (
+              <AppContent
+                isAuthenticated={isAuthenticated}
+                setIsAuthenticated={setIsAuthenticated}
+              />
+            ) : (
+              <AuthTabs setIsAuthenticated={setIsAuthenticated} />
+            )
+          }
         />
-      ) : (
-        <AuthTabs setIsAuthenticated={setIsAuthenticated} />
-      )}
-    </div>
+        <Route path="/about" element={<AboutUs />} />
+      </Routes>
+    </Router>
   );
 }
 
-ReactDOM.createRoot(document.getElementById('root')).render(
+ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <ApolloProvider client={client}>
       <MainApp />
