@@ -1,0 +1,72 @@
+/* src/styles/ItemList.css */
+.list-title {
+  font-size: 1.8rem;
+  font-weight: bold;
+  text-align: center;
+  color: #333;
+  margin-bottom: 1rem;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.list-container {
+  list-style-type: none;
+  padding: 0;
+  margin: 0 auto;
+  max-width: 600px;
+}
+
+.list-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: linear-gradient(135deg, #f0f0f0, #e0e0e0);
+  border-radius: 8px;
+  padding: 10px 15px;
+  margin-bottom: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease-in-out;
+}
+
+.list-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+}
+
+.item-details {
+  display: flex;
+  flex-direction: column;
+}
+
+.item-category {
+  font-weight: bold;
+  font-size: 1rem;
+  color: #007bff;
+}
+
+.item-amount {
+  font-size: 1rem;
+  font-weight: bold;
+  color: #e63946; /* Red for expenses */
+}
+
+.income-list .item-amount {
+  color: #2d8a34; /* Green for incomes */
+}
+
+.item-date {
+  font-size: 0.9rem;
+  color: #555;
+}
+
+.remove-btn {
+  background-color: transparent;
+  border: none;
+  color: #ff5555;
+  font-size: 1.5rem;
+  cursor: pointer;
+  transition: color 0.2s ease-in-out;
+}
+
+.remove-btn:hover {
+  color: #ff0000;
+}

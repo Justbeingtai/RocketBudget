@@ -15,7 +15,7 @@ import NetBalance from "../Budget/NetBalance";
 import { Container, Row, Col } from "react-bootstrap";
 import "../../styles/AppContent.css";
 
-const AppContent = ({ isAuthenticated, setIsAuthenticated, netBalance }) => {
+const AppContent = ({ isAuthenticated, setIsAuthenticated }) => {
   const { data: incomeData, loading: incomeLoading, error: incomeError, refetch: refetchIncomes } = useQuery(GET_INCOMES);
   const { data: expenseData, loading: expenseLoading, error: expenseError, refetch: refetchExpenses } = useQuery(GET_EXPENSES);
 
@@ -31,6 +31,11 @@ const AppContent = ({ isAuthenticated, setIsAuthenticated, netBalance }) => {
   const [removeExpense] = useMutation(REMOVE_EXPENSE, {
     onCompleted: () => refetchExpenses(),
   });
+
+  // Calculate net balance
+  const netBalance =
+    (incomeData?.incomes || []).reduce((acc, income) => acc + income.amount, 0) -
+    (expenseData?.expenses || []).reduce((acc, expense) => acc + expense.amount, 0);
 
   const handleAddIncome = (newIncome) => {
     const formattedDate = newIncome.date ? new Date(newIncome.date).toISOString() : new Date().toISOString();

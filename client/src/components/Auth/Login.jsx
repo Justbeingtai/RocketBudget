@@ -1,6 +1,6 @@
 // client/src/components/Auth/Login.jsx
 import React, { useState } from "react";
-import '../../styles/Auth.css';
+import "../../styles/Auth.css"; // Ensure this path is correct
 
 const Login = ({ setIsAuthenticated }) => {
   const [formData, setFormData] = useState({ username: "", password: "" });
@@ -13,17 +13,15 @@ const Login = ({ setIsAuthenticated }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     try {
-      const response = await fetch("http://localhost:4000/api/auth/login", { 
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/auth/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
       });
 
       const data = await response.json();
-
-      if (data.token) {
+      if (response.ok) {
         localStorage.setItem("token", data.token);
         setIsAuthenticated(true);
         setMessage("Login successful!");
@@ -37,27 +35,32 @@ const Login = ({ setIsAuthenticated }) => {
 
   return (
     <div className="auth-container">
-      <h2 className="auth-title">Login</h2>
-      <form onSubmit={handleSubmit} className="auth-input-group">
-        <input
-          type="text"
-          name="username"
-          placeholder="Username"
-          value={formData.username}
-          onChange={handleChange}
-          className="auth-input"
-        />
-        <input
-          type="password"
-          name="password"
-          placeholder="Password"
-          value={formData.password}
-          onChange={handleChange}
-          className="auth-input"
-        />
-        <button type="submit" className="auth-button">Login</button>
-      </form>
-      {message && <p className="auth-message">{message}</p>}
+      <div className="auth-card">
+        <h2 className="auth-title">Login</h2>
+        <p className="auth-subtitle">Access your account</p>
+        <form className="auth-form" onSubmit={handleSubmit}>
+          <input
+            type="text"
+            name="username"
+            placeholder="Username"
+            value={formData.username}
+            onChange={handleChange}
+            className="auth-input"
+          />
+          <input
+            type="password"
+            name="password"
+            placeholder="Password"
+            value={formData.password}
+            onChange={handleChange}
+            className="auth-input"
+          />
+          <button type="submit" className="auth-button">
+            Login
+          </button>
+        </form>
+        {message && <p className="auth-message">{message}</p>}
+      </div>
     </div>
   );
 };

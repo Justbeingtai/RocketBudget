@@ -1,0 +1,67 @@
+/* client/src/styles/NetBalance.css */
+
+.net-balance-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+  animation: fadeIn 1.5s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.net-balance-box {
+  padding: 20px 40px;
+  border-radius: 15px;
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  background: linear-gradient(135deg, #ffffff, #f7f7f7);
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.net-balance-box.positive {
+  border: 2px solid #34d3a0;
+}
+
+.net-balance-box.negative {
+  border: 2px solid #ff5252;
+}
+
+.net-balance-box:hover {
+  transform: scale(1.05);
+  box-shadow: 0px 6px 16px rgba(0, 0, 0, 0.2);
+}
+
+.net-balance-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #333;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 10px;
+}
+
+.net-balance-amount {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #333;
+  background: linear-gradient(
+    90deg,
+    #34d3a0 0%,
+    #4a90e2 50%,
+    #ff5252 100%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  letter-spacing: 1px;
+  margin: 0;
+}

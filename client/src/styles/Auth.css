@@ -1,53 +1,68 @@
+/* client/src/styles/Auth.css */
+
+/* Auth Container Styling */
 .auth-container {
   max-width: 400px;
-  margin: 0 auto;
-  padding: 40px 20px;
-  background-color: #fff;
+  margin: 50px auto;
+  padding: 30px 20px;
+  background-color: #ffffff;
   border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   text-align: center;
 }
 
+/* Auth Title Styling */
 .auth-title {
   font-size: 2rem;
   font-weight: 700;
-  color: #333;
+  color: #4a90e2;
   margin-bottom: 10px;
+  background: linear-gradient(45deg, #4a90e2, #34d3a0);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
+/* Subtitle Styling */
 .auth-subtitle {
   font-size: 1rem;
   color: #777;
   margin-bottom: 20px;
 }
 
+/* Input Group Styling */
 .auth-input-group {
   display: flex;
   flex-direction: column;
+  margin-bottom: 15px;
 }
 
 .auth-input {
   width: 100%;
-  padding: 10px;
-  margin-bottom: 15px;
+  padding: 12px;
+  font-size: 1rem;
   border: 1px solid #ddd;
   border-radius: 6px;
-  font-size: 1em;
-  transition: border-color 0.3s;
+  transition: border-color 0.3s, box-shadow 0.3s;
 }
 
 .auth-input:focus {
-  border-color: #4A90E2;
+  border-color: #4a90e2;
+  box-shadow: 0 0 6px rgba(74, 144, 226, 0.3);
   outline: none;
 }
 
+/* Button Styling */
 .auth-button {
-  padding: 10px;
-  font-size: 1em;
+  padding: 12px;
+  width: 100%;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #ffffff;
+  background-color: #4caf50;
   border: none;
   border-radius: 6px;
-  background-color: #4caf50;
-  color: white;
   cursor: pointer;
   transition: background-color 0.3s;
 }
@@ -56,8 +71,10 @@
   background-color: #43a047;
 }
 
+/* Message Styling */
 .auth-message {
-  font-size: 1em;
-  color: #f44336;
-  margin-top: 10px;
+  margin-top: 15px;
+  font-size: 0.9rem;
+  color: #333;
+  text-align: center;
 }

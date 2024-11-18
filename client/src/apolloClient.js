@@ -1,8 +1,11 @@
-// client/src/apolloClient.js
-import { ApolloClient, InMemoryCache } from '@apollo/client';
+import { ApolloClient, InMemoryCache, createHttpLink } from '@apollo/client';
+
+const httpLink = createHttpLink({
+  uri: import.meta.env.VITE_GRAPHQL_URI || 'http://localhost:4000/graphql', // Dynamically picks the URI based on the environment
+});
 
 const client = new ApolloClient({
-  uri: 'http://localhost:4000/graphql', // Ensure this matches the server endpoint
+  link: httpLink,
   cache: new InMemoryCache(),
 });
 
