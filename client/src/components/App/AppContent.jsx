@@ -1,4 +1,3 @@
-// client/src/components/App/AppContent.jsx
 import React, { useEffect } from "react";
 import { motion } from "framer-motion";
 import { useQuery, useMutation } from "@apollo/client";
