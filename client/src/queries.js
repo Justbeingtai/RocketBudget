@@ -1,4 +1,3 @@
-// client/src/queries.js
 import { gql } from '@apollo/client';
 
 // Mutation to add income

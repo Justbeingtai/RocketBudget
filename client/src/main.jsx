@@ -1,4 +1,3 @@
-// client/src/main.jsx
 import React, { useState, useEffect } from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter as Router, Routes, Route, createBrowserRouter } from "react-router-dom";
