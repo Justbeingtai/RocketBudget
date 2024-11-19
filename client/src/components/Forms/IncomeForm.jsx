@@ -1,14 +1,15 @@
-// client/src/components/Forms/IncomeForm.jsx
 import React, { useState } from 'react';
 import { Row, Col } from 'react-bootstrap';
 
 const IncomeForm = ({ setIncomeData }) => {
   const [category, setCategory] = useState('');
   const [amount, setAmount] = useState('');
-  const [date, setDate] = useState(new Date().toISOString().split('T')[0]);
+  const [date, setDate] = useState(
+    new Date().toLocaleDateString('en-US', { month: '2-digit', day: '2-digit' })
+  );
 
   const handleAddIncome = () => {
-    if (category && amount) {
+    if (category && amount && date) {
       const newIncome = {
         _id: `${category}-${amount}-${Date.now()}`,
         category,
@@ -19,7 +20,9 @@ const IncomeForm = ({ setIncomeData }) => {
       setIncomeData(newIncome);
       setCategory('');
       setAmount('');
-      setDate(new Date().toISOString().split('T')[0]);
+      setDate(
+        new Date().toLocaleDateString('en-US', { month: '2-digit', day: '2-digit' })
+      );
     }
   };
 
@@ -47,7 +50,8 @@ const IncomeForm = ({ setIncomeData }) => {
         </Col>
         <Col>
           <input
-            type="date"
+            type="text"
+            placeholder="MM/DD"
             value={date}
             onChange={(e) => setDate(e.target.value)}
             className="form-control"
