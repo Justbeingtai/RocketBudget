@@ -1,4 +1,3 @@
-// client/src/components/Auth/Login.jsx
 import React, { useState } from "react";
 import "../../styles/Auth.css"; // Ensure this path is correct
 

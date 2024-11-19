@@ -1,4 +1,3 @@
-// client/src/App.jsx
 import React from 'react';
 import AppLogic from './components/App/AppLogic';
 import AppContent from './components/App/AppContent';

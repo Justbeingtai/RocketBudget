@@ -1,4 +1,3 @@
-// client/src/components/About/AboutUs.jsx
 import React, { useEffect } from 'react';
 import anime from 'animejs';
 import '../../styles/AboutUs.css';
